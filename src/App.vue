@@ -3,14 +3,8 @@
         <div class="card-list">
             <post-card
                     v-for="item in posts"
-                    :key="`${item.id}`"
-                    :id="item.id"
-                    :name="item.name"
-                    :description="item.description"
-                    :tag="item.tag"
-                    :date="item.date"
-                    :image="item.image"
-                    :like="item.like"
+                    :key="item.id"
+                    :post="item"
                     @like="setLike"
             />
         </div>
@@ -19,7 +13,6 @@
 
 <script>
     import PostCard from "@/components/PostCard";
-
 
     const SERVER_URL = 'http://localhost:3000';
 
