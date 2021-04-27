@@ -6,11 +6,15 @@ module.exports = {
         port: 3000,
     },
     chainWebpack: (config) => {
-        const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
-        types.forEach((type) => addStyleResource(config.module.rule('sass')
-            .oneOf(type)));
-        config.resolve.alias
-            .set('@', path.resolve(__dirname, 'src'))
+       const svgRule = config.module.rule('svg');
+       const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
+       types.forEach((type) => addStyleResource(config.module.rule('scss')
+          .oneOf(type)));
+       svgRule.uses.clear();
+       svgRule
+          .use('babel-loader')
+          .loader('babel-loader')
+          .end()
     },
 };
 

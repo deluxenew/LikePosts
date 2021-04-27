@@ -1,21 +1,20 @@
 <template>
-    <div id="app" class="wrapper">
-        <div class="card-list">
-            <post-card
-                    v-for="item in posts"
-                    :key="item.id"
-                    :post="item"
-                    @like="setLike"
-            />
-        </div>
-    </div>
+   <div id="app" class="wrapper">
+      <div class="card-list">
+         <post-card
+            v-for="item in posts"
+            :key="item.id"
+            :post="item"
+            @like="setLike"
+         />
+      </div>
+   </div>
 </template>
 
 <script>
     import PostCard from "@/components/PostCard";
 
-    const SERVER_URL = 'http://localhost:3000';
-
+    const SERVER_URL = 'http://localhost:3004';
 
     export default {
         name: 'App',
@@ -25,7 +24,6 @@
                 posts: [],
             }
         },
-        computed: {},
         methods: {
             async getPosts() {
                 let response = await fetch(SERVER_URL + '/posts');
@@ -52,7 +50,11 @@
                         body: JSON.stringify(newPost)
                     });
 
-                    this.posts.splice(idx, 1, await response.json())
+                    if (response.ok) {
+                        this.posts.splice(idx, 1, await response.json())
+                        alert("Ошибка HTTP: " + response.status);
+                    }
+
                 }
             },
             intToStr(post, like) {
@@ -68,6 +70,6 @@
 </script>
 
 <style lang="scss">
-    @import "./assets/scss/styles.scss";
+   @import "./assets/scss/styles.scss";
 </style>
 
