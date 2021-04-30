@@ -63,11 +63,9 @@
                return IMG_PATH + this.post.image
            }
         },
-        data() {
-            return {
-                isLiked: false,
-            }
-        },
     }
 </script>
 
+<style lang="scss">
+   @import "~/src/assets/scss/components/post-card.scss";
+</style>

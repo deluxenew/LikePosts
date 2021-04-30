@@ -2,20 +2,19 @@
 @import '~@/assets/scss/common/fonts';
 @import '~@/assets/scss/common/variables';
 
+* {
+   font-family: $font;
+   font-weight: 400;
+   font-style: normal;
+   font-size: 15px;
+   color: $main-color;
+   box-sizing: border-box;
+   position: relative;
+}
+
 #app {
    position: relative;
    box-sizing: border-box;
-
-
-   * {
-      font-family: $font;
-      font-weight: 400;
-      font-style: normal;
-      font-size: 15px;
-      color: $main-color;
-      box-sizing: border-box;
-      position: relative;
-   }
 
    &.wrapper {
       display: flex;
@@ -25,7 +24,6 @@
       height: 100%;
       min-height: 100vh;
       min-width: 100vw;
-      //padding: 30px;
       background-color: $background;
 
       .card-list {
@@ -36,109 +34,6 @@
          margin: 0 -10px;
          align-items: center;
          justify-content: center;
-
-         .card {
-            width: 450px;
-            height: 450px;
-            background: $white;
-            border-radius: $bra;
-            padding: 10px;
-            margin: 10px;
-
-            .poster {
-               width: 100%;
-               height: 250px;
-
-               .image {
-                  width: 100%;
-                  height: 100%;
-                  background-size: cover;
-                  background-repeat: no-repeat;
-                  background-position: center center;
-               }
-
-               .tag {
-                  position: absolute;
-                  bottom: 10px;
-                  left: 10px;
-                  line-height: 22px;
-                  font-size: 15px;
-                  color: $white;
-                  border-radius: $bra;
-                  padding: 7px 11px;
-                  backdrop-filter: $blur;
-                  background-color: $accent-variant;
-               }
-            }
-
-
-            .title {
-               font-weight: bold;
-               font-size: 18px;
-               line-height: 21px;
-               padding: 21px 8px 0 8px;
-            }
-
-            .description {
-               font-weight: normal;
-               font-size: 15px;
-               line-height: 22px;
-               padding: 28px 8px 0 8px;
-               color: $primary;
-            }
-
-            .card-footer {
-               display: flex;
-               align-items: center;
-               justify-content: space-between;
-               padding: 25px 8px 0 8px;
-
-
-               .date {
-                  font-style: italic;
-                  font-weight: normal;
-                  font-size: 13px;
-                  line-height: 22px;
-                  color: $secondary;
-               }
-
-               .like {
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  cursor: pointer;
-
-
-                  .icon {
-                     font-weight: normal;
-                     display: flex;
-                     align-items: center;
-                     justify-content: center;
-                     line-height: 22px;
-
-                     svg {
-                        transition: $trs;
-                     }
-                  }
-
-                  .counter {
-                     font-family: 'Arial';
-                     color: $secondary;
-                     font-size: 12px;
-                     line-height: 22px;
-                     margin-left: 5px;
-                  }
-
-                  &:hover {
-                     .icon {
-                        svg {
-                           transform: scale(1.2)
-                        }
-                     }
-                  }
-               }
-            }
-         }
       }
    }
 }

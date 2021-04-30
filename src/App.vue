@@ -13,48 +13,41 @@
 
 <script>
     import PostCard from "@/components/PostCard";
-
-    const SERVER_URL = 'http://localhost:3004';
+    import {FETCH_POSTS_ACTION, SET_LIKE_ACTION} from "@/constants/actions-names";
+    import {GET_POSTS} from "@/constants/getters-names";
 
     export default {
         name: 'App',
         components: {PostCard},
+        computed: {
+            posts() {
+                return this.$store.getters[GET_POSTS]
+            },
+        },
         data() {
             return {
-                posts: [],
+                url: process.env.VUE_APP_SERVER,
+                title: process.env.VUE_APP_SERVER
             }
         },
         methods: {
-            async getPosts() {
-                let response = await fetch(SERVER_URL + '/posts');
-                if (response.ok) {
-                    let dataFromServer = await response.json();
-                    this.posts = dataFromServer
-                } else {
-                    alert("Ошибка HTTP: " + response.status);
+            getPosts() {
+                try {
+                    this.$store.dispatch(FETCH_POSTS_ACTION)
+                } catch (err) {
+                    console.log(err);
                 }
             },
-            async setLike(id) {
+            setLike(id) {
                 const idx = this.posts.findIndex(el => el.id === id)
-
                 if (idx > -1) {
                     let newPost = this.posts[idx]
-
                     newPost.like = this.intToStr(this.posts[idx], parseInt(this.posts[idx].like) + 1)
-
-                    let response = await fetch(SERVER_URL + '/posts/' + id, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json;charset=utf-8'
-                        },
-                        body: JSON.stringify(newPost)
-                    });
-
-                    if (response.ok) {
-                        this.posts.splice(idx, 1, await response.json())
-                        alert("Ошибка HTTP: " + response.status);
+                    try {
+                        this.$store.dispatch(SET_LIKE_ACTION, {id, body: newPost})
+                    } catch (err) {
+                        console.log(err);
                     }
-
                 }
             },
             intToStr(post, like) {
@@ -62,14 +55,14 @@
                 else return like
             }
         },
-
-        async mounted() {
-            await this.getPosts()
+        mounted() {
+            console.log(this.url);
+            this.getPosts()
         }
     }
 </script>
 
 <style lang="scss">
-   @import "./assets/scss/styles.scss";
+   @import "~/src/assets/scss/styles.scss";
 </style>
 
